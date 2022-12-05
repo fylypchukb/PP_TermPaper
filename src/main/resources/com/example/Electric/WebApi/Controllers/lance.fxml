@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.Integer?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0"
+            prefWidth="361.0" style="-fx-background-image:url('background.png');-fx-background-size: cover;"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.LanceController">
+    <children>
+        <fx:define>
+            <Integer fx:id="min" fx:value="0"/>
+            <Integer fx:id="max" fx:value="100"/>
+        </fx:define>
+        <Label layoutX="155.0" text="Lance"/>
+        <Label layoutX="153.0" layoutY="59.0" text="Name"/>
+        <Label layoutX="145.0" layoutY="151.0" text="Damage"/>
+        <Label layoutX="150.0" layoutY="247.0" text="Length"/>
+        <TextField fx:id="nameField" layoutX="115.0" layoutY="118.0"/>
+        <Spinner fx:id="lengthField" layoutX="115.0" layoutY="300.0" max="$max" min="$min"/>
+        <Button layoutX="100.0" layoutY="550.0" mnemonicParsing="false" onAction="#addLance" text="Add lance"/>
+        <Spinner fx:id="damageField" layoutX="115.0" layoutY="215.0" max="$max" min="$min"/>
+        <Spinner fx:id="priceField" layoutX="115.0" layoutY="400.0" max="$max" min="$min"/>
+        <Label layoutX="150.0" layoutY="350.0" text="Price"/>
+        <Spinner fx:id="weightField" layoutX="119.0" layoutY="500.0" max="$max" min="$min"/>
+        <Label layoutX="147.0" layoutY="450.0" text="Weight"/>
+    </children>
+</AnchorPane>

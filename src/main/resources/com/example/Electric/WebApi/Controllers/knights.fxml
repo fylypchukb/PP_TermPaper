@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.Integer?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" style="-fx-background-image:url('background.png');-fx-background-size: cover;"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.KnightController">
+    <children>
+        <ListView fx:id="knightList" layoutX="225.0" layoutY="49.0" prefHeight="479.0" prefWidth="350.0"/>
+        <Button fx:id="backButton" layoutX="32.0" layoutY="37.0" mnemonicParsing="false" onAction="#back" text="Menu"/>
+        <TextField fx:id="nameInput" layoutX="615.0" layoutY="81.0"/>
+        <TextField fx:id="titleInput" layoutX="615.0" layoutY="168.0"/>
+
+        <fx:define>
+            <Integer fx:id="min" fx:value="0"/>
+            <Integer fx:id="max" fx:value="1000"/>
+        </fx:define>
+        <Spinner fx:id="ageInput" layoutX="615.0" layoutY="255.0" min="$min" max="100"/>
+        <Spinner fx:id="healthInput" layoutX="615.0" layoutY="340.0" min="$min" max="$max"/>
+        <Button fx:id="addButton" layoutX="600.0" layoutY="400.0" mnemonicParsing="false" onAction="#addKnight"
+                text="Add knight"/>
+        <Label layoutX="664.0" layoutY="34.0" text="Name"/>
+        <Label layoutX="669.0" layoutY="118.0" text="Title"/>
+        <Label layoutX="669.0" layoutY="205.0" text="Age"/>
+        <Label layoutX="662.0" layoutY="297.0" text="Health"/>
+    </children>
+</AnchorPane>
