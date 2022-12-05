@@ -1,8 +1,8 @@
-package com.example.Knights.Domain.CommandPattern;
+package com.example.Electric.Domain.CommandPattern;
 
-import com.example.Knights.Data.Entities.Ammunition.Ammunition;
-import com.example.Knights.Domain.Response.RestException;
-import com.example.Knights.Domain.Services.KnightService;
+import com.example.Electric.Data.Entities.Ammunition.Ammunition;
+import com.example.Electric.Domain.Response.RestException;
+import com.example.Electric.Domain.Services.KnightService;
 import javafx.collections.ObservableList;
 import org.springframework.http.ResponseEntity;
 

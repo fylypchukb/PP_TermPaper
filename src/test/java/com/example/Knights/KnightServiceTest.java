@@ -1,12 +1,12 @@
 package com.example.Knights;
 
-import com.example.Knights.Data.Entities.Ammunition.Ammunition;
-import com.example.Knights.Data.Entities.Ammunition.Helm;
-import com.example.Knights.Data.Entities.Ammunition.Shield;
-import com.example.Knights.Data.Entities.Knight.Knight;
-import com.example.Knights.Domain.Repositories.IKnightRepository;
-import com.example.Knights.Domain.Response.RestException;
-import com.example.Knights.Domain.Services.KnightService;
+import com.example.Electric.Data.Entities.Ammunition.Ammunition;
+import com.example.Electric.Data.Entities.Ammunition.Helm;
+import com.example.Electric.Data.Entities.Ammunition.Shield;
+import com.example.Electric.Data.Entities.Knight.Knight;
+import com.example.Electric.Domain.Repositories.IKnightRepository;
+import com.example.Electric.Domain.Response.RestException;
+import com.example.Electric.Domain.Services.KnightService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
