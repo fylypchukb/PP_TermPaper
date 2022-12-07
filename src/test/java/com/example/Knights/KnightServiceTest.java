@@ -4,7 +4,6 @@ import com.example.Electric.Data.Entities.Ammunition.Ammunition;
 import com.example.Electric.Data.Entities.Ammunition.Helm;
 import com.example.Electric.Data.Entities.Ammunition.Shield;
 import com.example.Electric.Data.Entities.Knight.Knight;
-import com.example.Electric.Domain.Repositories.IKnightRepository;
 import com.example.Electric.Domain.Response.RestException;
 import com.example.Electric.Domain.Services.KnightService;
 import javafx.collections.FXCollections;
