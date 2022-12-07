@@ -45,7 +45,7 @@ public class Device {
         return room.getRoomName();
     }
 
-    public float getElectricPower() {
+    public Float getElectricPower() {
         return isActive ? electricPowerDefault : 0;
     }
 }

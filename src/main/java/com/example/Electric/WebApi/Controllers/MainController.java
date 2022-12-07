@@ -1,8 +1,8 @@
 package com.example.Electric.WebApi.Controllers;
 
 import com.example.Electric.Data.Entities.Device;
-import com.example.Electric.Domain.IDeviceManager;
-import com.example.Electric.Domain.Repositories.IDeviceRepository;
+import com.example.Electric.Domain.Interfaces.IDeviceManager;
+import com.example.Electric.Domain.Interfaces.IElectricPower;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,19 +39,21 @@ public class MainController implements Initializable {
     @FXML
     public Label TotalConsumptionLabel;
 
-    private IDeviceManager _service;
+    private IDeviceManager deviceManager;
+    private IElectricPower electricPower;
 
     private ObservableList<Device> devices;
 
     @Autowired
-    public MainController(FxWeaver _fxWeaver, IDeviceManager _service) {
+    public MainController(FxWeaver _fxWeaver, IDeviceManager deviceManager, IElectricPower electricPower) {
         this.fxWeaver = _fxWeaver;
-        this._service = _service;
+        this.deviceManager = deviceManager;
+        this.electricPower = electricPower;
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        devices = _service.allDevices();
+        devices = deviceManager.allDevices();
 
         DeviceID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("device_id"));
         DeviceName.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
@@ -61,5 +63,7 @@ public class MainController implements Initializable {
         DevicePowerUsage.setCellValueFactory(new PropertyValueFactory<Device, Float>("electricPower"));
 
         DeviceTable.setItems(devices);
+
+        TotalConsumptionLabel.setText(electricPower.GeneralConsumption().toString());
     }
 }

@@ -24,7 +24,6 @@ public class KnightsApplicationFX extends Application {
         this.applicationContext = new SpringApplicationBuilder()
                 .sources(KnightsApplication.class)
                 .run(args);
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.Electric.Domain;
+package com.example.Electric.Domain.Interfaces;
 
 import com.example.Electric.Data.Entities.Device;
 import javafx.collections.ObservableList;

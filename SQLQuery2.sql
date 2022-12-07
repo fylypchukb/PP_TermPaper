@@ -9,12 +9,12 @@ CREATE TABLE Rooms
 
 CREATE TABLE Devices
 (
-    device_id             int          NOT NULL
+    device_id              int          NOT NULL
         CONSTRAINT PK_Devices_deviceId PRIMARY KEY,
-    device_name           nvarchar(20) NOT NULL,
+    device_name            nvarchar(20) NOT NULL,
     electric_power_default float        NOT NULL,
-    is_active             bit          NOT NULL,
-    roomID               int          NOT NULL
+    is_active              bit          NOT NULL,
+    roomID                 int          NOT NULL
         CONSTRAINT FK_Rooms_Devices FOREIGN KEY
             REFERENCES Rooms (room_Id)
             ON DELETE NO ACTION
@@ -27,7 +27,7 @@ VALUES (1, 'Kitchen'),
        (3, 'LivingRoom')
 
 INSERT INTO Devices
-VALUES (0245, 'Microwave', 800, 1, 1),
+VALUES (1245, 'Microwave', 800, 1, 1),
        (6812, 'Coffee machine', 1500, 1, 1),
        (6827, 'Toaster', 800, 0, 1),
        (9485, 'Humidifier', 30, 0, 2),
