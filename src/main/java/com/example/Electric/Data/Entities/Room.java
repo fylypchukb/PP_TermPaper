@@ -14,7 +14,7 @@ public class Room {
     @Column(name = "room_id")
     private Integer room_Id;
 
-    @Column(name = "roomName" ,nullable = false)
+    @Column(name = "room_name",nullable = false)
     private String roomName;
 
     @OneToMany(targetEntity = Device.class, mappedBy = "room")

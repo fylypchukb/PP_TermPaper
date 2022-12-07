@@ -2,18 +2,18 @@ USE ElectricDevicesDB
 
 CREATE TABLE Rooms
 (
-    roomId   int          NOT NULL
+    room_Id   int          NOT NULL
         CONSTRAINT PK_Rooms_roomId PRIMARY KEY,
-    roomName nvarchar(20) NOT NULL,
+    room_name nvarchar(20) NOT NULL,
 );
 
 CREATE TABLE Devices
 (
-    deviceId             int          NOT NULL
+    device_id             int          NOT NULL
         CONSTRAINT PK_Devices_deviceId PRIMARY KEY,
-    deviceName           nvarchar(20) NOT NULL,
-    electricPowerDefault float        NOT NULL,
-    isActive             bit          NOT NULL,
+    device_name           nvarchar(20) NOT NULL,
+    electric_power_default float        NOT NULL,
+    is_active             bit          NOT NULL,
     roomID               int          NOT NULL
         CONSTRAINT FK_Rooms_Devices FOREIGN KEY
             REFERENCES Rooms (room_Id)

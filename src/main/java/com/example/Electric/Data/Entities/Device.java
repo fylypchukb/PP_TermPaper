@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Device {
 
     public Device(Integer deviceId, String deviceName, Float electricPowerDefault, Boolean isActive, Integer roomID) {
-        this.deviceId = deviceId;
+        this.device_id = deviceId;
         this.deviceName = deviceName;
         this.electricPowerDefault = electricPowerDefault;
         this.isActive = isActive;
@@ -20,17 +20,32 @@ public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "deviceId")
-    private Integer deviceId;
-    @Column(name = "deviceName",nullable = false)
+    private Integer device_id;
+    @Column(name = "device_name", nullable = false)
     private String deviceName;
-    @Column(name = "electricPowerDefault", nullable = false)
+    @Column(name = "electric_power_default", nullable = false)
     private Float electricPowerDefault;     //todo: дійсні числа у Entity
-    @Column(name = "isActive", nullable = false)
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
-    @Column(name = "roomID",nullable = false)
+    @Column(name = "roomID", nullable = false)
     private Integer roomID;
     @ManyToOne(targetEntity = Room.class)
     @JoinColumn(name = "roomID", nullable = false, insertable = false, updatable = false)
     private Room room;
+
+    public Device() {
+
+    }
+
+    public String getStatus() {
+        return isActive ? "Active" : "Disabled";
+    }
+
+    public String getRoomName() {
+        return room.getRoomName();
+    }
+
+    public float getElectricPower() {
+        return isActive ? electricPowerDefault : 0;
+    }
 }
