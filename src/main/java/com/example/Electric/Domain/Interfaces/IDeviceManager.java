@@ -5,4 +5,6 @@ import javafx.collections.ObservableList;
 
 public interface IDeviceManager {
     ObservableList<Device> allDevices();
+
+    void switchDevice(Device device);
 }

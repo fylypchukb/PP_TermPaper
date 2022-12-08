@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Electric.WebApi.Controllers.MainController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.MainController">
     <children>
         <TableView fx:id="DeviceTable" layoutX="45.0" layoutY="68.0" prefHeight="346.0" prefWidth="710.0">
             <columns>
-                <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID" />
-                <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name" />
-                <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room" />
-                <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status" />
-                <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power" />
-                <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage" />
+                <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID"/>
+                <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name"/>
+                <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room"/>
+                <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status"/>
+                <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power"/>
+                <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage"/>
             </columns>
         </TableView>
         <Label layoutX="45.0" layoutY="31.0" text="Electricity consumption:">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
         <Label fx:id="TotalConsumptionLabel" layoutX="242.0" layoutY="31.0">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
+        <Label layoutX="45.0" layoutY="427.0" text="Actions:">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Button fx:id="switchButton" layoutX="121.0" layoutY="428.0" mnemonicParsing="false" text="Switch"
+                onAction="#onSwitchButtonClick"/>
     </children>
 </AnchorPane>

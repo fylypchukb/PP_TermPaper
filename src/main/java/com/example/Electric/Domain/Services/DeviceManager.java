@@ -25,4 +25,11 @@ public class DeviceManager implements IDeviceManager {
         dev.forEach(devices::add);
         return devices;
     }
+
+    @Override
+    public void switchDevice(Device device) {
+        var found = deviceRepository.findById(device.getDevice_id()).get();
+
+        found.setIsActive(!device.getIsActive());
+    }
 }

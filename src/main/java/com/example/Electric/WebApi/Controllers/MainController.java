@@ -6,9 +6,7 @@ import com.example.Electric.Domain.Interfaces.IElectricPower;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -38,6 +36,8 @@ public class MainController implements Initializable {
     public TableColumn<Device, Float> DevicePowerUsage;
     @FXML
     public Label TotalConsumptionLabel;
+    @FXML
+    public Button switchButton;
 
     private IDeviceManager deviceManager;
     private IElectricPower electricPower;
@@ -53,6 +53,8 @@ public class MainController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DeviceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         devices = deviceManager.allDevices();
 
         DeviceID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("device_id"));
@@ -62,6 +64,24 @@ public class MainController implements Initializable {
         DevicePower.setCellValueFactory(new PropertyValueFactory<Device, Float>("electricPowerDefault"));
         DevicePowerUsage.setCellValueFactory(new PropertyValueFactory<Device, Float>("electricPower"));
 
+        DeviceTable.setItems(devices);
+
+        TotalConsumptionLabel.setText(electricPower.GeneralConsumption().toString());
+    }
+
+    @FXML
+    public void onSwitchButtonClick() {
+        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
+        for (var item : selectedList) {
+            deviceManager.switchDevice(item);
+        }
+
+        updateTable();
+    }
+
+    public void updateTable() {
+        DeviceTable.getItems().clear();
+        devices = deviceManager.allDevices();
         DeviceTable.setItems(devices);
 
         TotalConsumptionLabel.setText(electricPower.GeneralConsumption().toString());
