@@ -1,5 +1,6 @@
 package com.example.Electric.Data.Entities;
 
+import com.example.Electric.Domain.Services.roomElectric;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,10 +18,14 @@ public class Room {
     @Column(name = "room_name",nullable = false)
     private String roomName;
 
-    @OneToMany(targetEntity = Device.class, mappedBy = "room")
+    @OneToMany(fetch = FetchType.EAGER ,targetEntity = Device.class, mappedBy = "room")
     private List<Device> devices;
 
     public Integer getDevicesCount(){
         return devices.size();
+    }
+
+    public Float getPowerConsumption(){
+        return roomElectric.roomConsumption(devices);
     }
 }

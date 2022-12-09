@@ -9,4 +9,5 @@ public interface IDeviceManager {
     ObservableList<Device> filteredStatusDevices(ObservableList<Device> devices, Boolean status);
     void addDevice(Device device);
     void updateDeviceName(Device device, String newName);
+    void deleteDevices(ObservableList<Device> devices);
 }

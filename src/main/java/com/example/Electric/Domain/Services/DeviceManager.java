@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -55,5 +56,10 @@ public class DeviceManager implements IDeviceManager {
         Device fromRep = deviceRepository.findById(device.getDevice_id()).get();
 
         fromRep.setDeviceName(newName);
+    }
+
+    @Override
+    public void deleteDevices(ObservableList<Device> devices) {
+        deviceRepository.deleteAll(devices);
     }
 }

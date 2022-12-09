@@ -3,7 +3,6 @@ package com.example.Electric.Domain.Services;
 import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Domain.Interfaces.IElectricPower;
 import com.example.Electric.Domain.Repositories.IDeviceRepository;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class ElectricPower implements IElectricPower {
     }
 
     @Override
-    public Float GeneralConsumption(ObservableList<Device> list) {
+    public Float generalConsumption(ObservableList<Device> list) {
         Float toReturn = 0f;
         for (var device : list) {
             toReturn += device.getElectricPower();
@@ -27,4 +26,6 @@ public class ElectricPower implements IElectricPower {
 
         return toReturn;
     }
+
+
 }

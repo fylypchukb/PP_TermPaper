@@ -9,7 +9,6 @@ import com.example.Electric.Domain.Interfaces.IRoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -82,6 +81,8 @@ public class MainController implements Initializable {
     private final IElectricPower electricPower;
     private final IDeviceSearch deviceSearch;
     private final IRoomManager roomManager;
+    @FXML
+    public Button deleteButton;
 
     private ObservableList<Device> devices;
 
@@ -121,7 +122,7 @@ public class MainController implements Initializable {
 
         DeviceTable.setItems(devices);
 
-        TotalConsumptionLabel.setText(electricPower.GeneralConsumption(devices).toString());
+        TotalConsumptionLabel.setText(electricPower.generalConsumption(devices).toString());
 
         toggleGroup = new ToggleGroup();
         activeRadioButton.setToggleGroup(toggleGroup);
@@ -201,9 +202,20 @@ public class MainController implements Initializable {
         updateTable();
     }
 
+    @FXML
+    public void onDeleteButtonClick(){
+        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
+        deviceManager.deleteDevices(selectedList);
+
+        devices = deviceManager.allDevices();
+        checkToggles();
+        checkFilterBoxes();
+        updateTable();
+    }
+
     private void updateTable() {
         DeviceTable.setItems(devices);
-        TotalConsumptionLabel.setText(electricPower.GeneralConsumption(devices).toString());
+        TotalConsumptionLabel.setText(electricPower.generalConsumption(devices).toString());
     }
 
     private void checkToggles() {
