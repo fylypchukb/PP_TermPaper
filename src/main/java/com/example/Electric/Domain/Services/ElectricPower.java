@@ -19,11 +19,7 @@ public class ElectricPower implements IElectricPower {
     }
 
     @Override
-    public Float GeneralConsumption() {
-        ObservableList<Device> list = FXCollections.observableArrayList();
-        var rep = repository.findAll();
-        rep.forEach(list::add);
-
+    public Float GeneralConsumption(ObservableList<Device> list) {
         Float toReturn = 0f;
         for (var device : list) {
             toReturn += device.getElectricPower();

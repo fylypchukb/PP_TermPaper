@@ -32,4 +32,16 @@ public class DeviceManager implements IDeviceManager {
 
         found.setIsActive(!device.getIsActive());
     }
+
+    @Override
+    public ObservableList<Device> filteredStatusDevices(ObservableList<Device> devices, Boolean status) {
+        for (int i = 0; i < devices.size(); i++) {
+            if (devices.get(i).getIsActive() != status) {
+                devices.remove(i);
+                i--;
+            }
+        }
+
+        return devices;
+    }
 }

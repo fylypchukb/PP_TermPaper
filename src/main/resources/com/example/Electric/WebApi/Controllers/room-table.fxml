@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.RoomTableController">
+    <children>
+        <TableView fx:id="RoomTable" layoutX="46.0" layoutY="85.0" prefHeight="384.0" prefWidth="706.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="111.20001220703125" text="Name"/>
+                <TableColumn fx:id="numberOfDevicesColumn" prefWidth="116.800048828125" text="Number of devices"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

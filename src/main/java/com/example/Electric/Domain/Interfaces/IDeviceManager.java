@@ -7,4 +7,6 @@ public interface IDeviceManager {
     ObservableList<Device> allDevices();
 
     void switchDevice(Device device);
+
+    ObservableList<Device> filteredStatusDevices(ObservableList<Device> devices, Boolean status);
 }

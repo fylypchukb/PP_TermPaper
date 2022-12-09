@@ -19,4 +19,8 @@ public class Room {
 
     @OneToMany(targetEntity = Device.class, mappedBy = "room")
     private List<Device> devices;
+
+    public Integer getDevicesCount(){
+        return devices.size();
+    }
 }
