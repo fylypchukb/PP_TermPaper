@@ -9,17 +9,16 @@ import javax.persistence.*;
 @Table(name = "Devices")
 public class Device {
 
-    public Device(Integer deviceId, String deviceName, Float electricPowerDefault, Boolean isActive, Integer roomID) {
-        this.device_id = deviceId;
+    public Device(String deviceName, Float electricPowerDefault, Integer roomID) {
         this.deviceName = deviceName;
         this.electricPowerDefault = electricPowerDefault;
-        this.isActive = isActive;
         this.roomID = roomID;
-        this.room = room;
+        isActive = false;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "device_id")
     private Integer device_id;
     @Column(name = "device_name", nullable = false)
     private String deviceName;

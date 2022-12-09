@@ -5,6 +5,6 @@ import javafx.collections.ObservableList;
 
 public interface IRoomManager {
     ObservableList<Room> allRooms();
-
     Integer countDevices(Room room);
+    Room getByName(String name);
 }

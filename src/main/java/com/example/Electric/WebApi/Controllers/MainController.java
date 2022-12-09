@@ -1,17 +1,22 @@
 package com.example.Electric.WebApi.Controllers;
 
 import com.example.Electric.Data.Entities.Device;
+import com.example.Electric.Data.Entities.Room;
 import com.example.Electric.Domain.Interfaces.IDeviceManager;
 import com.example.Electric.Domain.Interfaces.IDeviceSearch;
 import com.example.Electric.Domain.Interfaces.IElectricPower;
+import com.example.Electric.Domain.Interfaces.IRoomManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -62,33 +67,57 @@ public class MainController implements Initializable {
     public CheckBox averCheckBox;
     @FXML
     public CheckBox maxCheckBox;
+    @FXML
+    public TextField nameTextField;
+    @FXML
+    public TextField powerTextField;
+    @FXML
+    public ComboBox<String> roomComboBox;
+    @FXML
+    public Button addButton;
+    @FXML
+    public Label errorLabel;
 
-    private IDeviceManager deviceManager;
-    private IElectricPower electricPower;
-    private IDeviceSearch deviceSearch;
+    private final IDeviceManager deviceManager;
+    private final IElectricPower electricPower;
+    private final IDeviceSearch deviceSearch;
+    private final IRoomManager roomManager;
 
     private ObservableList<Device> devices;
 
     @Autowired
-    public MainController(FxWeaver _fxWeaver, IDeviceManager deviceManager, IElectricPower electricPower, IDeviceSearch deviceSearch) {
+    public MainController(FxWeaver _fxWeaver, IDeviceManager deviceManager,
+                          IElectricPower electricPower, IDeviceSearch deviceSearch, IRoomManager roomManager) {
         this.fxWeaver = _fxWeaver;
         this.deviceManager = deviceManager;
         this.electricPower = electricPower;
         this.deviceSearch = deviceSearch;
+        this.roomManager = roomManager;
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DeviceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        DeviceTable.setEditable(true);
 
         devices = deviceManager.allDevices();
 
-        DeviceID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("device_id"));
-        DeviceName.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
-        DeviceStatus.setCellValueFactory(new PropertyValueFactory<Device, String>("status"));
-        RoomName.setCellValueFactory(new PropertyValueFactory<Device, String>("roomName"));
-        DevicePower.setCellValueFactory(new PropertyValueFactory<Device, Float>("electricPowerDefault"));
-        DevicePowerUsage.setCellValueFactory(new PropertyValueFactory<Device, Float>("electricPower"));
+        DeviceID.setCellValueFactory(new PropertyValueFactory<>("device_id"));
+
+        DeviceName.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
+        DeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
+        DeviceName.setOnEditCommit(
+                event -> deviceManager.updateDeviceName(((Device) event.getTableView().getItems().get(
+                        event.getTablePosition().getRow())), event.getNewValue())
+        );
+
+        DeviceStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        RoomName.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+
+        DevicePower.setCellValueFactory(new PropertyValueFactory<>("electricPowerDefault"));
+
+        DevicePowerUsage.setCellValueFactory(new PropertyValueFactory<>("electricPower"));
 
         DeviceTable.setItems(devices);
 
@@ -98,6 +127,15 @@ public class MainController implements Initializable {
         activeRadioButton.setToggleGroup(toggleGroup);
         disabledRadioButton.setToggleGroup(toggleGroup);
         allRadioButton.setToggleGroup(toggleGroup);
+
+        ObservableList<Room> rooms = roomManager.allRooms();
+        ObservableList<String> roomNames = FXCollections.observableArrayList();
+        for (var item : rooms) {
+            roomNames.add(item.getRoomName());
+        }
+
+        roomComboBox.setItems(roomNames);
+        roomComboBox.setValue(roomNames.get(0));
     }
 
     @FXML
@@ -123,10 +161,43 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void onApplyButtonClick(ActionEvent event) {
+    public void onApplyButtonClick() {
         devices = deviceManager.allDevices();
         checkToggles();
         checkFilterBoxes();
+        updateTable();
+    }
+
+    @FXML
+    public void onAddButtonClick() {
+        boolean isFloat = true;
+        Float power = null;
+        String fromComboBox = roomComboBox.getValue();
+
+        try {
+            power = Float.parseFloat(powerTextField.getText());
+        } catch (Exception e) {
+            isFloat = false;
+        }
+
+        if (nameTextField.getText().compareTo("") != 0 && nameTextField.getText().matches(".*[A-z].*") && isFloat
+                && fromComboBox != null) {
+            Device device = new Device(
+                    nameTextField.getText(),
+                    power,
+                    roomManager.getByName(fromComboBox).getRoom_Id()
+            );
+
+            deviceManager.addDevice(device);
+            errorLabel.setText("");
+        } else {
+            errorLabel.setText("Invalid name, power value or room isn't selected");
+        }
+
+        nameTextField.clear();
+        powerTextField.clear();
+
+        devices = deviceManager.allDevices();
         updateTable();
     }
 

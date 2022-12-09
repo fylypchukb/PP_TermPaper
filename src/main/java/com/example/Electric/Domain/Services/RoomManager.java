@@ -45,4 +45,16 @@ public class RoomManager implements IRoomManager {
 
         return count;
     }
+
+    @Override
+    public Room getByName(String name) {
+        ObservableList<Room> rooms = allRooms();
+
+        for (var item : rooms) {
+            if (item.getRoomName().compareTo(name) == 0)
+                return item;
+        }
+
+        return null;
+    }
 }

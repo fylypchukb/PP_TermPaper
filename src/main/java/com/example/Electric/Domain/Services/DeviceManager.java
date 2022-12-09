@@ -44,4 +44,16 @@ public class DeviceManager implements IDeviceManager {
 
         return devices;
     }
+
+    @Override
+    public void addDevice(Device device) {
+        deviceRepository.save(device);
+    }
+
+    @Override
+    public void updateDeviceName(Device device, String newName) {
+        Device fromRep = deviceRepository.findById(device.getDevice_id()).get();
+
+        fromRep.setDeviceName(newName);
+    }
 }

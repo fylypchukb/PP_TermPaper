@@ -9,7 +9,7 @@ CREATE TABLE Rooms
 
 CREATE TABLE Devices
 (
-    device_id              int          NOT NULL
+    device_id              int          NOT NULL IDENTITY
         CONSTRAINT PK_Devices_deviceId PRIMARY KEY,
     device_name            nvarchar(20) NOT NULL,
     electric_power_default float        NOT NULL,
@@ -27,12 +27,12 @@ VALUES (1, 'Kitchen'),
        (3, 'LivingRoom')
 
 INSERT INTO Devices
-VALUES (1245, 'Microwave', 800, 1, 1),
-       (6812, 'Coffee machine', 1500, 1, 1),
-       (6827, 'Toaster', 800, 0, 1),
-       (9485, 'Humidifier', 30, 0, 2),
-       (6543, 'Table LED lamp', 4, 1, 2),
-       (8132, 'Electronic clock', 6, 0, 2),
-       (3983, 'PS5', 800, 0, 3),
-       (5132, 'TV', 500, 0, 3),
-       (7915, 'Musical center', 600, 1, 3)
+VALUES ('Microwave', 800, 1, 1),
+       ('Coffee machine', 1500, 1, 1),
+       ('Toaster', 800, 0, 1),
+       ('Humidifier', 30, 0, 2),
+       ('Table LED lamp', 4, 1, 2),
+       ('Electronic clock', 6, 0, 2),
+       ('PS5', 800, 0, 3),
+       ('TV', 500, 0, 3),
+       ('Musical center', 600, 1, 3)
