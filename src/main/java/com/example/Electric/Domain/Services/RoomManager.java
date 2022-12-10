@@ -57,4 +57,14 @@ public class RoomManager implements IRoomManager {
 
         return null;
     }
+
+    @Override
+    public void addRoom(Room room) {
+        roomRepository.save(room);
+    }
+
+    @Override
+    public void deleteRooms(ObservableList<Room> rooms) {
+        roomRepository.deleteAll(rooms);
+    }
 }

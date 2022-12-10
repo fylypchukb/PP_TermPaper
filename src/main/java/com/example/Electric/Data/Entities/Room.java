@@ -21,6 +21,14 @@ public class Room {
     @OneToMany(fetch = FetchType.EAGER ,targetEntity = Device.class, mappedBy = "room")
     private List<Device> devices;
 
+    public Room(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public Room() {
+
+    }
+
     public Integer getDevicesCount(){
         return devices.size();
     }

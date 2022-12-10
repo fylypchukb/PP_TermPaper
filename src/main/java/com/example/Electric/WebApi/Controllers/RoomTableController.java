@@ -8,9 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -38,6 +36,14 @@ public class RoomTableController implements Initializable {
     public TableColumn<Room, Float> powerConsumptionColumn;
     @FXML
     public Button devicesButton;
+    @FXML
+    public TextField nameTextField;
+    @FXML
+    public Button addButton;
+    @FXML
+    public Label errorLabel;
+    @FXML
+    public Button deleteButton;
 
     private IRoomManager roomManager;
 
@@ -68,4 +74,32 @@ public class RoomTableController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void onAddButtonClick() {
+        String name = nameTextField.getText();
+
+        if (name.compareTo("") != 0 && name.matches(".*[A-z].*")) {
+            Room room = new Room(name);
+
+            roomManager.addRoom(room);
+            errorLabel.setText("");
+        } else {
+            errorLabel.setText("Invalid name, power value or room isn't selected");
+        }
+
+        nameTextField.clear();
+
+        rooms = roomManager.allRooms();
+        RoomTable.setItems(rooms);
+    }
+
+    @FXML void onDeleteButtonClick(){
+        ObservableList<Room> toDelete = RoomTable.getSelectionModel().getSelectedItems();
+        roomManager.deleteRooms(toDelete);
+
+        rooms = roomManager.allRooms();
+        RoomTable.setItems(rooms);
+    }
+
 }

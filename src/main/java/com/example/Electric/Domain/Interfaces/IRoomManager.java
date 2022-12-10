@@ -7,4 +7,6 @@ public interface IRoomManager {
     ObservableList<Room> allRooms();
     Integer countDevices(Room room);
     Room getByName(String name);
+    void addRoom(Room room);
+    void deleteRooms(ObservableList<Room> rooms);
 }

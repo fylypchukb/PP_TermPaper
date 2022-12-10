@@ -1,8 +1,8 @@
-USE ElectricDevicesDB
+USE ElectricDevicesDB;
 
 CREATE TABLE Rooms
 (
-    room_Id   int          NOT NULL
+    room_Id   int          NOT NULL IDENTITY
         CONSTRAINT PK_Rooms_roomId PRIMARY KEY,
     room_name nvarchar(20) NOT NULL,
 );
@@ -17,14 +17,14 @@ CREATE TABLE Devices
     roomID                 int          NOT NULL
         CONSTRAINT FK_Rooms_Devices FOREIGN KEY
             REFERENCES Rooms (room_Id)
-            ON DELETE NO ACTION
+            ON DELETE CASCADE
             ON UPDATE NO ACTION,
 );
 
 INSERT INTO Rooms
-VALUES (1, 'Kitchen'),
-       (2, 'Bedroom'),
-       (3, 'LivingRoom')
+VALUES ('Kitchen'),
+       ('Bedroom'),
+       ('LivingRoom');
 
 INSERT INTO Devices
 VALUES ('Microwave', 800, 1, 1),
@@ -35,4 +35,7 @@ VALUES ('Microwave', 800, 1, 1),
        ('Electronic clock', 6, 0, 2),
        ('PS5', 800, 0, 3),
        ('TV', 500, 0, 3),
-       ('Musical center', 600, 1, 3)
+       ('Musical center', 600, 1, 3);
+
+DROP TABLE Devices;
+DROP TABLE Rooms;
