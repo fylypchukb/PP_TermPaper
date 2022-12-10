@@ -9,4 +9,5 @@ public interface IRoomManager {
     Room getByName(String name);
     void addRoom(Room room);
     void deleteRooms(ObservableList<Room> rooms);
+    void updateRoomName(Room room, String name);
 }

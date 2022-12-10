@@ -67,4 +67,11 @@ public class RoomManager implements IRoomManager {
     public void deleteRooms(ObservableList<Room> rooms) {
         roomRepository.deleteAll(rooms);
     }
+
+    @Override
+    public void updateRoomName(Room room, String name) {
+        Room fromRep = roomRepository.findById(room.getRoom_Id()).get();
+
+        fromRep.setRoomName(name);
+    }
 }

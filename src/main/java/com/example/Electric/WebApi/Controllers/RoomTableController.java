@@ -1,5 +1,6 @@
 package com.example.Electric.WebApi.Controllers;
 
+import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Data.Entities.Room;
 import com.example.Electric.Domain.Interfaces.IRoomManager;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -57,10 +59,18 @@ public class RoomTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        RoomTable.setEditable(true);
         rooms = roomManager.allRooms();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("room_Id"));
+
         nameColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomName"));
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameColumn.setOnEditCommit(
+                event -> roomManager.updateRoomName(((Room) event.getTableView().getItems().get(
+                        event.getTablePosition().getRow())), event.getNewValue())
+        );
+
         numberOfDevicesColumn.setCellValueFactory(new PropertyValueFactory<>("devicesCount"));
         powerConsumptionColumn.setCellValueFactory(new PropertyValueFactory<>("powerConsumption"));
 
