@@ -1,6 +1,6 @@
 package com.example.Electric.Data.Entities;
 
-import com.example.Electric.Domain.Services.roomElectric;
+import com.example.Electric.Domain.Services.RoomElectric;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -34,6 +34,6 @@ public class Room {
     }
 
     public Float getPowerConsumption(){
-        return roomElectric.roomConsumption(devices);
+        return RoomElectric.roomConsumption(devices);
     }
 }

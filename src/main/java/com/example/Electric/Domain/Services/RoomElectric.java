@@ -4,7 +4,7 @@ import com.example.Electric.Data.Entities.Device;
 
 import java.util.List;
 
-public class roomElectric {
+public class RoomElectric {
     public static Float roomConsumption(List<Device> list) {
         Float toReturn = 0f;
 
