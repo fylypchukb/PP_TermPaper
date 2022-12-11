@@ -4,7 +4,6 @@ import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Data.Entities.Room;
 import com.example.Electric.Domain.Interfaces.IDeviceManager;
 import com.example.Electric.Domain.Interfaces.IDeviceSearch;
-import com.example.Electric.Domain.Interfaces.IElectricPower;
 import com.example.Electric.Domain.Interfaces.IRoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +18,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,11 +26,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("menu.fxml")
-public class MainController implements Initializable {
+@FxmlView("search-screen.fxml")
+public class SearchScreenController implements Initializable {
     private final FxWeaver fxWeaver;
-    @FXML
     public TableView<Device> DeviceTable;
+    @FXML
+    public TableColumn<Device, Float> DevicePowerUsage;
     @FXML
     public TableColumn<Device, Integer> DeviceID;
     @FXML
@@ -42,14 +43,13 @@ public class MainController implements Initializable {
     @FXML
     public TableColumn<Device, Float> DevicePower;
     @FXML
-    public TableColumn<Device, Float> DevicePowerUsage;
+    public TextField searchTextField;
     @FXML
-    public Label TotalConsumptionLabel;
+    public Spinner<Integer> fromFilterSpinner;
     @FXML
-    public Button switchButton;
+    public Spinner<Integer> toFilterSpinner;
     @FXML
-    public Button roomsButton;
-
+    public ComboBox<String> filterRoomComboBox;
     @FXML
     public ToggleGroup toggleGroup;
     @FXML
@@ -57,57 +57,26 @@ public class MainController implements Initializable {
     @FXML
     public RadioButton disabledRadioButton;
     @FXML
-    public RadioButton allRadioButton;
-    @FXML
-    public Button applyButton;
-    @FXML
-    public Spinner<Integer> fromFilterSpinner;
-    @FXML
-    public Spinner<Integer> toFilterSpinner;
-    @FXML
-    public TextField nameTextField;
-    @FXML
-    public TextField powerTextField;
-    @FXML
-    public ComboBox<String> roomComboBox;
-    @FXML
-    public Button addButton;
-    @FXML
     public Label errorLabel;
-    @FXML
-    public TextField searchTextField;
-    @FXML
-    public Button searchButton;
-    @FXML
-    public Button deleteButton;
-    @FXML
-    public Button resetButton;
-    @FXML
-    public ComboBox<String> filterRoomComboBox;
 
     private final IDeviceManager deviceManager;
-    private final IElectricPower electricPower;
     private final IDeviceSearch deviceSearch;
     private final IRoomManager roomManager;
-
     private ObservableList<Device> devices;
 
     @Autowired
-    public MainController(FxWeaver _fxWeaver, IDeviceManager deviceManager,
-                          IElectricPower electricPower, IDeviceSearch deviceSearch, IRoomManager roomManager) {
-        this.fxWeaver = _fxWeaver;
+    public SearchScreenController(FxWeaver fxWeaver, IDeviceManager deviceManager, IDeviceSearch deviceSearch,
+                                  IRoomManager roomManager) {
+        this.fxWeaver = fxWeaver;
         this.deviceManager = deviceManager;
-        this.electricPower = electricPower;
         this.deviceSearch = deviceSearch;
         this.roomManager = roomManager;
     }
 
-    @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         DeviceTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         DeviceTable.setEditable(true);
-
-        devices = deviceManager.allDevices();
 
         DeviceID.setCellValueFactory(new PropertyValueFactory<>("device_id"));
 
@@ -126,22 +95,15 @@ public class MainController implements Initializable {
 
         DevicePowerUsage.setCellValueFactory(new PropertyValueFactory<>("electricPower"));
 
-        DeviceTable.setItems(devices);
-
-        TotalConsumptionLabel.setText(electricPower.generalConsumption(devices).toString());
-
         toggleGroup = new ToggleGroup();
         activeRadioButton.setToggleGroup(toggleGroup);
         disabledRadioButton.setToggleGroup(toggleGroup);
-        allRadioButton.setToggleGroup(toggleGroup);
 
         ObservableList<Room> rooms = roomManager.allRooms();
         ObservableList<String> roomNames = FXCollections.observableArrayList();
         for (var item : rooms) {
             roomNames.add(item.getRoomName());
         }
-
-        roomComboBox.setItems(roomNames);
         filterRoomComboBox.setItems(roomNames);
 
         SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999);
@@ -151,92 +113,16 @@ public class MainController implements Initializable {
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999);
         valueFactory2.setValue(9999);
         toFilterSpinner.setValueFactory(valueFactory2);
-
     }
 
     @FXML
-    public void onSwitchButtonClick() {
-        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
-        for (var item : selectedList) {
-            deviceManager.switchDevice(item);
-        }
-
-        devices = deviceManager.allDevices();
-
+    public void onSearchButtonAction(){
+        devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
         checkToggles();
         checkFilterSpinners();
         checkFilterRoomComboBox();
-        updateTable();
-    }
 
-    @FXML
-    public void onRoomsButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxWeaver.loadView(RoomTableController.class));
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    public void onApplyButtonClick() {
-        devices = deviceManager.allDevices();
-        checkToggles();
-        checkFilterSpinners();
-        checkFilterRoomComboBox();
-        updateTable();
-    }
-
-    @FXML
-    public void onAddButtonClick() {
-        boolean isFloat = true;
-        Float power = null;
-        String fromComboBox = roomComboBox.getValue();
-
-        try {
-            power = Float.parseFloat(powerTextField.getText());
-        } catch (Exception e) {
-            isFloat = false;
-        }
-
-        if (nameTextField.getText().compareTo("") != 0 && nameTextField.getText().matches(".*[A-z].*") && isFloat
-                && fromComboBox != null) {
-            Device device = new Device(
-                    nameTextField.getText(),
-                    power,
-                    roomManager.getByName(fromComboBox).getRoom_Id()
-            );
-
-            deviceManager.addDevice(device);
-            errorLabel.setText("");
-        } else {
-            errorLabel.setText("Invalid name, power value or room isn't selected");
-        }
-
-        nameTextField.clear();
-        powerTextField.clear();
-        filterRoomComboBox.setValue(null);
-
-        devices = deviceManager.allDevices();
-        updateTable();
-    }
-
-    @FXML
-    public void onDeleteButtonClick() {
-        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
-        deviceManager.deleteDevices(selectedList);
-
-        devices = deviceManager.allDevices();
-        checkToggles();
-        checkFilterSpinners();
-        checkFilterRoomComboBox();
-        updateTable();
-    }
-
-    @FXML
-    public void onSearchButtonAction() {
-        devices = deviceSearch.searchByName(devices, searchTextField.getText());
-
-        updateTable();
+        DeviceTable.setItems(devices);
     }
 
     @FXML
@@ -252,21 +138,30 @@ public class MainController implements Initializable {
         fromFilterSpinner.getValueFactory().setValue(0);
         toFilterSpinner.getValueFactory().setValue(9999);
 
-        devices = deviceManager.allDevices();
-        updateTable();
+        DeviceTable.getItems().clear();
+    }
+    @FXML
+    public void onSwitchButtonClick() {
+        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
+        for (var item : selectedList) {
+            deviceManager.switchDevice(item);
+        }
+
+        devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
+
+        checkToggles();
+        checkFilterSpinners();
+        checkFilterRoomComboBox();
+
+        DeviceTable.setItems(devices);
     }
 
     @FXML
-    public void onExtendedSearchButtonClick(ActionEvent event){
+    public void onDevicesButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxWeaver.loadView(SearchScreenController.class));
+        Scene scene = new Scene(fxWeaver.loadView(MainController.class));
         stage.setScene(scene);
         stage.show();
-    }
-
-    private void updateTable() {
-        DeviceTable.setItems(devices);
-        TotalConsumptionLabel.setText(electricPower.generalConsumption(devices).toString());
     }
 
     private void checkToggles() {

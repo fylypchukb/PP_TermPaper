@@ -1,87 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Electric.WebApi.Controllers.MainController">
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.MainController">
     <children>
         <TableView fx:id="DeviceTable" layoutX="193.0" layoutY="82.0" prefHeight="346.0" prefWidth="623.0">
             <columns>
-                <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID" />
-                <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name" />
-                <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room" />
-                <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status" />
-                <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power" />
-                <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage" />
+                <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID"/>
+                <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name"/>
+                <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room"/>
+                <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status"/>
+                <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power"/>
+                <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage"/>
             </columns>
         </TableView>
         <Label layoutX="193.0" layoutY="44.0" text="Electricity consumption:">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
         <Label fx:id="TotalConsumptionLabel" layoutX="387.0" layoutY="44.0" prefHeight="27.0" prefWidth="126.0">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
-        <Button fx:id="roomsButton" layoutX="763.0" layoutY="45.0" mnemonicParsing="false" onAction="#onRoomsButtonClick" text="Rooms" />
-        <Button fx:id="switchButton" layoutX="701.0" layoutY="45.0" mnemonicParsing="false" onAction="#onSwitchButtonClick" text="Switch" />
-        <Button fx:id="addButton" layoutX="628.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="38.0" text="Add" />
-        <TextField fx:id="nameTextField" layoutX="193.0" layoutY="440.0" prefHeight="26.0" prefWidth="126.0" promptText="Name" />
-        <ComboBox fx:id="roomComboBox" layoutX="450.0" layoutY="440.0" prefHeight="26.0" prefWidth="150.0" promptText="Select room" />
-        <TextField fx:id="powerTextField" layoutX="336.0" layoutY="440.0" prefHeight="26.0" prefWidth="90.0" promptText="Power" />
+        <Button fx:id="roomsButton" layoutX="763.0" layoutY="45.0" mnemonicParsing="false"
+                onAction="#onRoomsButtonClick" text="Rooms"/>
+        <Button fx:id="switchButton" layoutX="701.0" layoutY="45.0" mnemonicParsing="false"
+                onAction="#onSwitchButtonClick" text="Switch"/>
+        <Button fx:id="addButton" layoutX="628.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddButtonClick"
+                prefHeight="26.0" prefWidth="38.0" text="Add"/>
+        <TextField fx:id="nameTextField" layoutX="193.0" layoutY="440.0" prefHeight="26.0" prefWidth="126.0"
+                   promptText="Name"/>
+        <ComboBox fx:id="roomComboBox" layoutX="450.0" layoutY="440.0" prefHeight="26.0" prefWidth="150.0"
+                  promptText="Select room"/>
+        <TextField fx:id="powerTextField" layoutX="336.0" layoutY="440.0" prefHeight="26.0" prefWidth="90.0"
+                   promptText="Power"/>
         <Label fx:id="errorLabel" layoutX="193.0" layoutY="466.0" style="-fx-text-fill: #ff1a1a;">
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="deleteButton" layoutX="641.0" layoutY="45.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
-        <TextField fx:id="searchTextField" layoutX="305.0" layoutY="14.0" prefHeight="26.0" prefWidth="399.0" promptText="Search" />
-        <Button fx:id="searchButton" layoutX="711.0" layoutY="15.0" mnemonicParsing="false" onAction="#onSearchButtonAction" text="Search" />
+        <Button fx:id="deleteButton" layoutX="641.0" layoutY="45.0" mnemonicParsing="false"
+                onAction="#onDeleteButtonClick" text="Delete"/>
+        <TextField fx:id="searchTextField" layoutX="305.0" layoutY="14.0" prefHeight="26.0" prefWidth="399.0"
+                   promptText="Search"/>
+        <Button fx:id="searchButton" layoutX="711.0" layoutY="15.0" mnemonicParsing="false"
+                onAction="#onSearchButtonAction" text="Search"/>
         <AnchorPane layoutY="-1.0" prefHeight="512.0" prefWidth="159.0" style="-fx-background-color: #00ffff;">
             <children>
                 <Label layoutX="14.0" layoutY="21.0" text="Filters">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="24.0"/>
                     </font>
                 </Label>
                 <Label layoutX="28.0" layoutY="56.0" text="Status:">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="18.0"/>
                     </font>
                 </Label>
-                <RadioButton fx:id="activeRadioButton" layoutX="47.0" layoutY="106.0" mnemonicParsing="false" text="Active" />
-                <RadioButton fx:id="disabledRadioButton" layoutX="47.0" layoutY="124.0" mnemonicParsing="false" text="Disabled" />
+                <RadioButton fx:id="activeRadioButton" layoutX="47.0" layoutY="106.0" mnemonicParsing="false"
+                             text="Active"/>
+                <RadioButton fx:id="disabledRadioButton" layoutX="47.0" layoutY="124.0" mnemonicParsing="false"
+                             text="Disabled"/>
                 <Label layoutX="28.0" layoutY="142.0" text="Power:">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="18.0"/>
                     </font>
                 </Label>
-                <Separator layoutY="56.0" prefHeight="0.0" prefWidth="170.0" style="-fx-background-color: #000000;" />
-                <Button fx:id="applyButton" layoutX="113.0" layoutY="472.0" mnemonicParsing="false" onAction="#onApplyButtonClick" text="Apply" />
-                <RadioButton fx:id="allRadioButton" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" text="All" />
-                <Button fx:id="resetButton" layoutX="56.0" layoutY="472.0" mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
-            <Label layoutX="28.0" layoutY="282.0" text="Room:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="filterRoomComboBox" layoutX="35.0" layoutY="309.0" prefHeight="26.0" prefWidth="114.0" promptText="Select room" />
-            <Label layoutX="40.0" layoutY="169.0" text="From" />
-            <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="41.0" layoutY="187.0" prefHeight="10.0" prefWidth="114.0" />
-            <Label layoutX="40.0" layoutY="220.0" text="To" />
-            <Spinner fx:id="toFilterSpinner" editable="true" layoutX="41.0" layoutY="237.0" prefHeight="26.0" prefWidth="114.0" />
+                <Separator layoutY="56.0" prefHeight="0.0" prefWidth="170.0" style="-fx-background-color: #000000;"/>
+                <Button fx:id="applyButton" layoutX="113.0" layoutY="472.0" mnemonicParsing="false"
+                        onAction="#onApplyButtonClick" text="Apply"/>
+                <RadioButton fx:id="allRadioButton" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" text="All"/>
+                <Button fx:id="resetButton" layoutX="56.0" layoutY="472.0" mnemonicParsing="false"
+                        onAction="#onResetButtonClick" text="Reset"/>
+                <Label layoutX="28.0" layoutY="282.0" text="Room:">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <ComboBox fx:id="filterRoomComboBox" layoutX="35.0" layoutY="309.0" prefHeight="26.0" prefWidth="114.0"
+                          promptText="Select room"/>
+                <Label layoutX="40.0" layoutY="169.0" text="From"/>
+                <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="41.0" layoutY="187.0" prefHeight="10.0"
+                         prefWidth="114.0"/>
+                <Label layoutX="40.0" layoutY="220.0" text="To"/>
+                <Spinner fx:id="toFilterSpinner" editable="true" layoutX="41.0" layoutY="237.0" prefHeight="26.0"
+                         prefWidth="114.0"/>
             </children>
         </AnchorPane>
+        <Button  layoutX="485.0" layoutY="45.0" mnemonicParsing="false"
+                text="Extended Search" onAction="#onExtendedSearchButtonClick"/>
     </children>
 </AnchorPane>

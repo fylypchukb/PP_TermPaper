@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Electric.WebApi.Controllers.RoomTableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.Electric.WebApi.Controllers.RoomTableController">
     <children>
         <TableView fx:id="RoomTable" layoutX="97.0" layoutY="51.0" prefHeight="384.0" prefWidth="706.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="48.20000457763672" text="ID" />
-                <TableColumn fx:id="nameColumn" prefWidth="139.0" text="Name" />
-                <TableColumn fx:id="numberOfDevicesColumn" prefWidth="127.60000610351562" text="Number of devices" />
-                <TableColumn fx:id="powerConsumptionColumn" prefWidth="137.4000244140625" text="Power consumption" />
+                <TableColumn fx:id="idColumn" prefWidth="48.20000457763672" text="ID"/>
+                <TableColumn fx:id="nameColumn" prefWidth="139.0" text="Name"/>
+                <TableColumn fx:id="numberOfDevicesColumn" prefWidth="127.60000610351562" text="Number of devices"/>
+                <TableColumn fx:id="powerConsumptionColumn" prefWidth="137.4000244140625" text="Power consumption"/>
             </columns>
         </TableView>
-        <Button fx:id="devicesButton" layoutX="746.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDevicesButtonClick" text="Devices" />
-        <TextField fx:id="nameTextField" layoutX="97.0" layoutY="440.0" prefHeight="26.0" prefWidth="126.0" promptText="Name" />
-        <Button fx:id="addButton" layoutX="233.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="38.0" text="Add" />
+        <Button fx:id="devicesButton" layoutX="746.0" layoutY="14.0" mnemonicParsing="false"
+                onAction="#onDevicesButtonClick" text="Devices"/>
+        <TextField fx:id="nameTextField" layoutX="97.0" layoutY="440.0" prefHeight="26.0" prefWidth="126.0"
+                   promptText="Name"/>
+        <Button fx:id="addButton" layoutX="233.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddButtonClick"
+                prefHeight="26.0" prefWidth="38.0" text="Add"/>
         <Label fx:id="errorLabel" layoutX="193.0" layoutY="466.0" style="-fx-text-fill: #ff1a1a;">
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="deleteButton" layoutX="686.0" layoutY="14.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
+        <Button fx:id="deleteButton" layoutX="686.0" layoutY="14.0" mnemonicParsing="false"
+                onAction="#onDeleteButtonClick" text="Delete"/>
     </children>
 </AnchorPane>

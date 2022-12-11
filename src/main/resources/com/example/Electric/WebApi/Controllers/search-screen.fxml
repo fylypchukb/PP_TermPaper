@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Electric.WebApi.Controllers.SearchScreenController">
+    <children>
+        <TableView fx:id="DeviceTable" layoutX="346.0" layoutY="87.0" prefHeight="346.0" prefWidth="540.0">
+            <columns>
+                <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID" />
+                <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name" />
+                <TableColumn fx:id="RoomName" prefWidth="84.800048828125" text="Room" />
+                <TableColumn fx:id="DeviceStatus" prefWidth="86.39999389648438" text="Status" />
+                <TableColumn fx:id="DevicePower" prefWidth="92.79998779296875" text="Power" />
+                <TableColumn fx:id="DevicePowerUsage" prefWidth="108.800048828125" text="Power Usage" />
+            </columns>
+        </TableView>
+        <Button layoutX="346.0" layoutY="441.0" mnemonicParsing="false" onAction="#onSwitchButtonClick" text="Switch" />
+        <Button layoutX="746.0" layoutY="14.0" mnemonicParsing="false"
+                onAction="#onDevicesButtonClick" text="Devices"/>
+        <AnchorPane layoutX="14.0" layoutY="87.0" prefHeight="486.0" prefWidth="316.0">
+            <children>
+                <TextField fx:id="searchTextField" layoutX="18.0" layoutY="34.0" prefHeight="26.0" prefWidth="282.0" promptText="Search" />
+                <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="15.0" layoutY="148.0" prefHeight="10.0" prefWidth="114.0" />
+                <Spinner fx:id="toFilterSpinner" editable="true" layoutX="159.0" layoutY="147.0" prefHeight="26.0" prefWidth="114.0" />
+                <ComboBox fx:id="filterRoomComboBox" layoutX="15.0" layoutY="203.0" prefHeight="26.0" prefWidth="114.0" promptText="Select room" />
+                <RadioButton fx:id="activeRadioButton" layoutX="18.0" layoutY="98.0" mnemonicParsing="false" text="Active" />
+                <RadioButton fx:id="disabledRadioButton" layoutX="83.0" layoutY="98.0" mnemonicParsing="false" text="Disabled" />
+                <Label layoutX="18.0" layoutY="14.0" text="Name">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="18.0" layoutY="71.0" text="Status">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="18.0" layoutY="126.0" text="Power Value">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="18.0" layoutY="183.0" text="Room">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button fx:id="searchButton" layoutX="235.0" layoutY="262.0" mnemonicParsing="false" onAction="#onSearchButtonAction" text="Search" />
+                <Label fx:id="errorLabel" layoutX="193.0" layoutY="466.0" style="-fx-text-fill: #ff1a1a;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button layoutX="151.0" layoutY="262.0" mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
