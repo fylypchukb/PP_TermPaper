@@ -1,6 +1,7 @@
 package com.example.Electric.Domain.Services;
 
 import com.example.Electric.Data.Entities.Device;
+import com.example.Electric.Data.Entities.Room;
 import com.example.Electric.Domain.Interfaces.IDeviceManager;
 import com.example.Electric.Domain.Repositories.IDeviceRepository;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -35,9 +37,21 @@ public class DeviceManager implements IDeviceManager {
     }
 
     @Override
-    public ObservableList<Device> filteredStatusDevices(ObservableList<Device> devices, Boolean status) {
+    public ObservableList<Device> filterStatusDevices(ObservableList<Device> devices, Boolean status) {
         for (int i = 0; i < devices.size(); i++) {
             if (devices.get(i).getIsActive() != status) {
+                devices.remove(i);
+                i--;
+            }
+        }
+
+        return devices;
+    }
+
+    @Override
+    public ObservableList<Device> filterRoomDevices(ObservableList<Device> devices, Room room) {
+        for (int i = 0; i < devices.size(); i++){
+            if (!Objects.equals(devices.get(i).getRoomID(), room.getRoom_Id())){
                 devices.remove(i);
                 i--;
             }

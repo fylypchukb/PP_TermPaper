@@ -84,6 +84,8 @@ public class MainController implements Initializable {
     public Button deleteButton;
     @FXML
     public Button resetButton;
+    @FXML
+    public ComboBox<String> filterRoomComboBox;
 
     private final IDeviceManager deviceManager;
     private final IElectricPower electricPower;
@@ -142,7 +144,7 @@ public class MainController implements Initializable {
         }
 
         roomComboBox.setItems(roomNames);
-        roomComboBox.setValue(roomNames.get(0));
+        filterRoomComboBox.setItems(roomNames);
     }
 
     @FXML
@@ -156,6 +158,7 @@ public class MainController implements Initializable {
 
         checkToggles();
         checkFilterBoxes();
+        checkFilterRoomComboBox();
         updateTable();
     }
 
@@ -172,6 +175,7 @@ public class MainController implements Initializable {
         devices = deviceManager.allDevices();
         checkToggles();
         checkFilterBoxes();
+        checkFilterRoomComboBox();
         updateTable();
     }
 
@@ -203,36 +207,40 @@ public class MainController implements Initializable {
 
         nameTextField.clear();
         powerTextField.clear();
+        filterRoomComboBox.setValue(null);
 
         devices = deviceManager.allDevices();
         updateTable();
     }
 
     @FXML
-    public void onDeleteButtonClick(){
+    public void onDeleteButtonClick() {
         var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
         deviceManager.deleteDevices(selectedList);
 
         devices = deviceManager.allDevices();
         checkToggles();
         checkFilterBoxes();
+        checkFilterRoomComboBox();
         updateTable();
     }
 
     @FXML
-    public void onSearchButtonAction(){
+    public void onSearchButtonAction() {
         devices = deviceSearch.searchByName(devices, searchTextField.getText());
 
         updateTable();
     }
 
     @FXML
-    public void onResetButtonClick(){
+    public void onResetButtonClick() {
         Toggle toClear = toggleGroup.getSelectedToggle();
         if (toClear != null)
             toClear.setSelected(false);
 
         searchTextField.clear();
+        filterRoomComboBox.setValue(null);
+        filterRoomComboBox.setPromptText("Select room");
 
         devices = deviceManager.allDevices();
         updateTable();
@@ -245,9 +253,9 @@ public class MainController implements Initializable {
 
     private void checkToggles() {
         if (activeRadioButton.isSelected()) {
-            devices = deviceManager.filteredStatusDevices(devices, true);
+            devices = deviceManager.filterStatusDevices(devices, true);
         } else if (disabledRadioButton.isSelected()) {
-            devices = deviceManager.filteredStatusDevices(devices, false);
+            devices = deviceManager.filterStatusDevices(devices, false);
         }
     }
 
@@ -275,4 +283,11 @@ public class MainController implements Initializable {
         devices = deviceSearch.rangeDevicesSearch(devices, from, to);
     }
 
+    private void checkFilterRoomComboBox() {
+        String fromComboBox = filterRoomComboBox.getValue();
+
+        if (fromComboBox != null) {
+            devices = deviceManager.filterRoomDevices(devices, roomManager.getByName(fromComboBox));
+        }
+    }
 }
