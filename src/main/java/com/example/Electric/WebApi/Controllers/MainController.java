@@ -76,13 +76,19 @@ public class MainController implements Initializable {
     public Button addButton;
     @FXML
     public Label errorLabel;
+    @FXML
+    public TextField searchTextField;
+    @FXML
+    public Button searchButton;
+    @FXML
+    public Button deleteButton;
+    @FXML
+    public Button resetButton;
 
     private final IDeviceManager deviceManager;
     private final IElectricPower electricPower;
     private final IDeviceSearch deviceSearch;
     private final IRoomManager roomManager;
-    @FXML
-    public Button deleteButton;
 
     private ObservableList<Device> devices;
 
@@ -210,6 +216,25 @@ public class MainController implements Initializable {
         devices = deviceManager.allDevices();
         checkToggles();
         checkFilterBoxes();
+        updateTable();
+    }
+
+    @FXML
+    public void onSearchButtonAction(){
+        devices = deviceSearch.searchByName(devices, searchTextField.getText());
+
+        updateTable();
+    }
+
+    @FXML
+    public void onResetButtonClick(){
+        Toggle toClear = toggleGroup.getSelectedToggle();
+        if (toClear != null)
+            toClear.setSelected(false);
+
+        searchTextField.clear();
+
+        devices = deviceManager.allDevices();
         updateTable();
     }
 

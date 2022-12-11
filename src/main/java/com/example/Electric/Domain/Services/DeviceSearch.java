@@ -2,6 +2,7 @@ package com.example.Electric.Domain.Services;
 
 import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Domain.Interfaces.IDeviceSearch;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,20 @@ public class DeviceSearch implements IDeviceSearch {
         }
 
         return devices;
+    }
+
+    @Override
+    public ObservableList<Device> searchByName(ObservableList<Device> list, String searchInput) {
+        searchInput = searchInput.trim();
+
+        ObservableList<Device> toReturn = FXCollections.observableArrayList();
+        for (var item :
+                list) {
+            if (item.getDeviceName().toLowerCase().contains(searchInput.toLowerCase())) {
+                toReturn.add(item);
+            }
+        }
+
+        return toReturn;
     }
 }

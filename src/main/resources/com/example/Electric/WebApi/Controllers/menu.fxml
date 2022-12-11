@@ -57,6 +57,8 @@
                 <Button fx:id="applyButton" layoutX="113.0" layoutY="472.0" mnemonicParsing="false"
                         onAction="#onApplyButtonClick" text="Apply"/>
                 <RadioButton fx:id="allRadioButton" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" text="All"/>
+                <Button fx:id="resetButton" layoutX="56.0" layoutY="472.0" mnemonicParsing="false" text="Reset"
+                        onAction="#onResetButtonClick"/>
             </children>
         </AnchorPane>
         <Button fx:id="switchButton" layoutX="701.0" layoutY="45.0" mnemonicParsing="false"
@@ -73,7 +75,11 @@
                 <Font size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="deleteButton" layoutX="641.0" layoutY="45.0" mnemonicParsing="false" text="Delete"
-                onAction="#onDeleteButtonClick"/>
+        <Button fx:id="deleteButton" layoutX="641.0" layoutY="45.0" mnemonicParsing="false"
+                onAction="#onDeleteButtonClick" text="Delete"/>
+        <TextField fx:id="searchTextField" layoutX="305.0" layoutY="14.0" prefHeight="26.0" prefWidth="399.0"
+                   promptText="Search"/>
+        <Button fx:id="searchButton" layoutX="711.0" layoutY="15.0" mnemonicParsing="false"
+                onAction="#onSearchButtonAction" text="Search"/>
     </children>
 </AnchorPane>
