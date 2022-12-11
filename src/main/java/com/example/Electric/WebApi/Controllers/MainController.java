@@ -61,11 +61,9 @@ public class MainController implements Initializable {
     @FXML
     public Button applyButton;
     @FXML
-    public CheckBox minCheckBox;
+    public Spinner<Integer> fromFilterSpinner;
     @FXML
-    public CheckBox averCheckBox;
-    @FXML
-    public CheckBox maxCheckBox;
+    public Spinner<Integer> toFilterSpinner;
     @FXML
     public TextField nameTextField;
     @FXML
@@ -145,6 +143,15 @@ public class MainController implements Initializable {
 
         roomComboBox.setItems(roomNames);
         filterRoomComboBox.setItems(roomNames);
+
+        SpinnerValueFactory<Integer> valueFactory1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999);
+        valueFactory1.setValue(0);
+        fromFilterSpinner.setValueFactory(valueFactory1);
+
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999);
+        valueFactory2.setValue(9999);
+        toFilterSpinner.setValueFactory(valueFactory2);
+
     }
 
     @FXML
@@ -157,7 +164,7 @@ public class MainController implements Initializable {
         devices = deviceManager.allDevices();
 
         checkToggles();
-        checkFilterBoxes();
+        checkFilterSpinners();
         checkFilterRoomComboBox();
         updateTable();
     }
@@ -174,7 +181,7 @@ public class MainController implements Initializable {
     public void onApplyButtonClick() {
         devices = deviceManager.allDevices();
         checkToggles();
-        checkFilterBoxes();
+        checkFilterSpinners();
         checkFilterRoomComboBox();
         updateTable();
     }
@@ -220,7 +227,7 @@ public class MainController implements Initializable {
 
         devices = deviceManager.allDevices();
         checkToggles();
-        checkFilterBoxes();
+        checkFilterSpinners();
         checkFilterRoomComboBox();
         updateTable();
     }
@@ -242,6 +249,9 @@ public class MainController implements Initializable {
         filterRoomComboBox.setValue(null);
         filterRoomComboBox.setPromptText("Select room");
 
+        fromFilterSpinner.getValueFactory().setValue(0);
+        toFilterSpinner.getValueFactory().setValue(9999);
+
         devices = deviceManager.allDevices();
         updateTable();
     }
@@ -259,28 +269,16 @@ public class MainController implements Initializable {
         }
     }
 
-    private void checkFilterBoxes() {
-        float from = Float.MAX_VALUE, to = 0f;
+    private void checkFilterSpinners() {
+        Float from = fromFilterSpinner.getValue().floatValue();
+        Float to = toFilterSpinner.getValue().floatValue();
 
-        if (minCheckBox.isSelected()) {
-            from = 0f;
-            to = 500f;
-        }
-        if (averCheckBox.isSelected()) {
-            from = Math.min(500f, from);
-            to = 1000f;
-        }
-        if (maxCheckBox.isSelected()) {
-            from = Math.min(1000f, from);
-            to = Float.MAX_VALUE;
-        }
-
-        if (from == Float.MAX_VALUE) {
-            from = 0f;
-            to = Float.MAX_VALUE;
-        }
-
-        devices = deviceSearch.rangeDevicesSearch(devices, from, to);
+        if (to < from){
+            errorLabel.setText("To-value cannot be bigger than from-value");
+            fromFilterSpinner.getValueFactory().setValue(0);
+            toFilterSpinner.getValueFactory().setValue(9999);
+        } else
+            devices = deviceSearch.rangeDevicesSearch(devices, from, to);
     }
 
     private void checkFilterRoomComboBox() {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -68,18 +68,19 @@
                     </font>
                 </Label>
                 <Separator layoutY="56.0" prefHeight="0.0" prefWidth="170.0" style="-fx-background-color: #000000;" />
-                <CheckBox fx:id="minCheckBox" layoutX="46.0" layoutY="169.0" mnemonicParsing="false" text="0-500" />
-                <CheckBox fx:id="averCheckBox" layoutX="45.0" layoutY="193.0" mnemonicParsing="false" text="500-1000" />
-                <CheckBox fx:id="maxCheckBox" layoutX="48.0" layoutY="221.0" mnemonicParsing="false" text="1000- ..." />
                 <Button fx:id="applyButton" layoutX="113.0" layoutY="472.0" mnemonicParsing="false" onAction="#onApplyButtonClick" text="Apply" />
                 <RadioButton fx:id="allRadioButton" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" text="All" />
                 <Button fx:id="resetButton" layoutX="56.0" layoutY="472.0" mnemonicParsing="false" onAction="#onResetButtonClick" text="Reset" />
-            <Label layoutX="30.0" layoutY="249.0" text="Room:">
+            <Label layoutX="28.0" layoutY="282.0" text="Room:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="filterRoomComboBox" layoutX="37.0" layoutY="276.0" prefHeight="26.0" prefWidth="114.0" promptText="Select room" />
+            <ComboBox fx:id="filterRoomComboBox" layoutX="35.0" layoutY="309.0" prefHeight="26.0" prefWidth="114.0" promptText="Select room" />
+            <Label layoutX="40.0" layoutY="169.0" text="From" />
+            <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="41.0" layoutY="187.0" prefHeight="10.0" prefWidth="114.0" />
+            <Label layoutX="40.0" layoutY="220.0" text="To" />
+            <Spinner fx:id="toFilterSpinner" editable="true" layoutX="41.0" layoutY="237.0" prefHeight="26.0" prefWidth="114.0" />
             </children>
         </AnchorPane>
     </children>
