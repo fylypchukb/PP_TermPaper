@@ -18,13 +18,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@SuppressWarnings("DuplicatedCode")
 @Component
 @FxmlView("search-screen.fxml")
 public class SearchScreenController implements Initializable {
@@ -83,8 +83,8 @@ public class SearchScreenController implements Initializable {
         DeviceName.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
         DeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
         DeviceName.setOnEditCommit(
-                event -> deviceManager.updateDeviceName(((Device) event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())), event.getNewValue())
+                event -> deviceManager.updateDeviceName(event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()), event.getNewValue())
         );
 
         DeviceStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -116,7 +116,7 @@ public class SearchScreenController implements Initializable {
     }
 
     @FXML
-    public void onSearchButtonAction(){
+    public void onSearchButtonAction() {
         devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
         checkToggles();
         checkFilterSpinners();
@@ -140,20 +140,23 @@ public class SearchScreenController implements Initializable {
 
         DeviceTable.getItems().clear();
     }
+
     @FXML
     public void onSwitchButtonClick() {
-        var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
-        for (var item : selectedList) {
-            deviceManager.switchDevice(item);
+        if (DeviceTable.getItems().size() != 0) {
+            var selectedList = DeviceTable.getSelectionModel().getSelectedItems();
+            for (var item : selectedList) {
+                deviceManager.switchDevice(item);
+            }
+
+            devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
+
+            checkToggles();
+            checkFilterSpinners();
+            checkFilterRoomComboBox();
+
+            onSearchButtonAction();
         }
-
-        devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
-
-        checkToggles();
-        checkFilterSpinners();
-        checkFilterRoomComboBox();
-
-        DeviceTable.setItems(devices);
     }
 
     @FXML
@@ -176,7 +179,7 @@ public class SearchScreenController implements Initializable {
         Float from = fromFilterSpinner.getValue().floatValue();
         Float to = toFilterSpinner.getValue().floatValue();
 
-        if (to < from){
+        if (to < from) {
             errorLabel.setText("To-value cannot be bigger than from-value");
             fromFilterSpinner.getValueFactory().setValue(0);
             toFilterSpinner.getValueFactory().setValue(9999);

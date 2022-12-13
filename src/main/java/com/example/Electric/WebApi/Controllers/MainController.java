@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@SuppressWarnings("DuplicatedCode")
 @Component
 @FxmlView("menu.fxml")
 public class MainController implements Initializable {
@@ -114,7 +115,7 @@ public class MainController implements Initializable {
         DeviceName.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
         DeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
         DeviceName.setOnEditCommit(
-                event -> deviceManager.updateDeviceName(((Device) event.getTableView().getItems().get(
+                event -> deviceManager.updateDeviceName(( event.getTableView().getItems().get(
                         event.getTablePosition().getRow())), event.getNewValue())
         );
 
@@ -234,7 +235,17 @@ public class MainController implements Initializable {
 
     @FXML
     public void onSearchButtonAction() {
-        devices = deviceSearch.searchByName(devices, searchTextField.getText());
+        devices = deviceSearch.searchByName(deviceManager.allDevices(), searchTextField.getText());
+
+        Toggle toClear = toggleGroup.getSelectedToggle();
+        if (toClear != null)
+            toClear.setSelected(false);
+
+        filterRoomComboBox.setValue(null);
+        filterRoomComboBox.setPromptText("Select room");
+
+        fromFilterSpinner.getValueFactory().setValue(0);
+        toFilterSpinner.getValueFactory().setValue(9999);
 
         updateTable();
     }

@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Service
@@ -31,9 +30,13 @@ public class DeviceManager implements IDeviceManager {
 
     @Override
     public void switchDevice(Device device) {
-        var found = deviceRepository.findById(device.getDevice_id()).get();
+        var repOpt = deviceRepository.findById(device.getDevice_id());
 
-        found.setIsActive(!device.getIsActive());
+        Device fromRep;
+        if (repOpt.isPresent()){
+            fromRep = repOpt.get();
+            fromRep.setIsActive(!device.getIsActive());
+        }
     }
 
     @Override
@@ -67,9 +70,13 @@ public class DeviceManager implements IDeviceManager {
 
     @Override
     public void updateDeviceName(Device device, String newName) {
-        Device fromRep = deviceRepository.findById(device.getDevice_id()).get();
+        var repOpt = deviceRepository.findById(device.getDevice_id());
 
-        fromRep.setDeviceName(newName);
+        Device fromRep;
+        if(repOpt.isPresent()){
+            fromRep = repOpt.get();
+            fromRep.setDeviceName(newName);
+        }
     }
 
     @Override

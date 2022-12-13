@@ -1,6 +1,5 @@
 package com.example.Electric.WebApi.Controllers;
 
-import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Data.Entities.Room;
 import com.example.Electric.Domain.Interfaces.IRoomManager;
 import javafx.collections.ObservableList;
@@ -47,7 +46,7 @@ public class RoomTableController implements Initializable {
     @FXML
     public Button deleteButton;
 
-    private IRoomManager roomManager;
+    private final IRoomManager roomManager;
 
     private ObservableList<Room> rooms;
 
@@ -64,11 +63,11 @@ public class RoomTableController implements Initializable {
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("room_Id"));
 
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Room, String>("roomName"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("roomName"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(
-                event -> roomManager.updateRoomName(((Room) event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())), event.getNewValue())
+                event -> roomManager.updateRoomName(event.getTableView().getItems().get(
+                        event.getTablePosition().getRow()), event.getNewValue())
         );
 
         numberOfDevicesColumn.setCellValueFactory(new PropertyValueFactory<>("devicesCount"));
