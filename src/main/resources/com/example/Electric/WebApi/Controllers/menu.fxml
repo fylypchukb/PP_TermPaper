@@ -1,178 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0"
-            prefWidth="925.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.Electric.WebApi.Controllers.MainController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Electric.WebApi.Controllers.MainController">
     <TableView fx:id="DeviceTable" layoutX="185.0" layoutY="102.0" prefHeight="346.0" prefWidth="623.0">
         <columns>
-            <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID"/>
-            <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name"/>
-            <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room"/>
-            <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status"/>
-            <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power"/>
-            <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage"/>
+            <TableColumn fx:id="DeviceID" prefWidth="49.999996185302734" text="ID" />
+            <TableColumn fx:id="DeviceName" prefWidth="111.60000610351562" text="Name" />
+            <TableColumn fx:id="RoomName" prefWidth="129.40003967285156" text="Room" />
+            <TableColumn fx:id="DeviceStatus" prefWidth="113.0" text="Status" />
+            <TableColumn fx:id="DevicePower" prefWidth="95.39996337890625" text="Power" />
+            <TableColumn fx:id="DevicePowerUsage" prefWidth="113.39996337890625" text="Power Usage" />
         </columns>
     </TableView>
     <Label layoutX="193.0" layoutY="59.0" text="Electricity consumption:">
         <font>
-            <Font name="Calibri" size="18.0"/>
+            <Font name="Calibri" size="18.0" />
         </font>
     </Label>
     <Label fx:id="TotalConsumptionLabel" layoutX="381.0" layoutY="56.0" prefHeight="27.0" prefWidth="126.0">
         <font>
-            <Font name="Calibri" size="18.0"/>
+            <Font name="Calibri" size="18.0" />
         </font>
     </Label>
-    <Button fx:id="roomsButton" layoutX="814.0" layoutY="102.0" mnemonicParsing="false"
-            onAction="#onRoomsButtonClick"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Rooms">
+    <Button fx:id="roomsButton" layoutX="814.0" layoutY="102.0" mnemonicParsing="false" onAction="#onRoomsButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Rooms">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
-    <Button fx:id="switchButton" layoutX="753.0" layoutY="67.0" mnemonicParsing="false"
-            onAction="#onSwitchButtonClick"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Switch">
+    <Button fx:id="switchButton" layoutX="753.0" layoutY="67.0" mnemonicParsing="false" onAction="#onSwitchButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Switch">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
-    <Button fx:id="addButton" layoutX="584.0" layoutY="455.0" mnemonicParsing="false" onAction="#onAddButtonClick"
-            prefHeight="26.0" prefWidth="47.0"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Add">
+    <Button fx:id="addButton" layoutX="584.0" layoutY="455.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="26.0" prefWidth="47.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Add">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
-    <TextField fx:id="nameTextField" layoutX="185.0" layoutY="455.0" prefHeight="26.0" prefWidth="126.0"
-               promptText="Name"
-               style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
+    <TextField fx:id="nameTextField" layoutX="185.0" layoutY="455.0" prefHeight="26.0" prefWidth="126.0" promptText="Name" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </TextField>
-    <ComboBox fx:id="roomComboBox" layoutX="421.0" layoutY="454.0" prefHeight="29.0" prefWidth="150.0"
-              promptText="Select room"
-              style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"/>
-    <TextField fx:id="powerTextField" layoutX="318.0" layoutY="455.0" prefHeight="26.0" prefWidth="90.0"
-               promptText="Power"
-               style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
+    <ComboBox fx:id="roomComboBox" layoutX="421.0" layoutY="454.0" prefHeight="29.0" prefWidth="150.0" promptText="Select room" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" />
+    <TextField fx:id="powerTextField" layoutX="318.0" layoutY="455.0" prefHeight="26.0" prefWidth="90.0" promptText="Power" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </TextField>
-    <Label fx:id="errorLabel" layoutX="193.0" layoutY="502.0" prefHeight="20.0" prefWidth="163.0"
-           style="-fx-text-fill: #ff1a1a;">
+    <Label fx:id="errorLabel" layoutX="193.0" layoutY="502.0" prefHeight="20.0" prefWidth="503.0" style="-fx-text-fill: #ff1a1a;">
         <font>
-            <Font name="Calibri" size="14.0"/>
+            <Font name="Calibri" size="14.0" />
         </font>
     </Label>
-    <Button fx:id="deleteButton" layoutX="691.0" layoutY="67.0" mnemonicParsing="false"
-            onAction="#onDeleteButtonClick"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Delete">
+    <Button fx:id="deleteButton" layoutX="691.0" layoutY="67.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Delete">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
-    <TextField fx:id="searchTextField" layoutX="185.0" layoutY="14.0" prefHeight="26.0" prefWidth="399.0"
-               promptText="Search"
-               style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
+    <TextField fx:id="searchTextField" layoutX="185.0" layoutY="14.0" prefHeight="26.0" prefWidth="399.0" promptText="Search" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;">
         <font>
-            <Font name="Calibri" size="12.0"/>
+            <Font name="Calibri" size="12.0" />
         </font>
     </TextField>
-    <Button fx:id="searchButton" layoutX="591.0" layoutY="15.0" mnemonicParsing="false"
-            onAction="#onSearchButtonAction"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Search">
+    <Button fx:id="searchButton" layoutX="591.0" layoutY="15.0" mnemonicParsing="false" onAction="#onSearchButtonAction" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Search">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
     <AnchorPane prefHeight="550.0" prefWidth="174.0" style="-fx-background-color: #d9d9d9;">
         <Label layoutX="14.0" layoutY="21.0" text="Filters">
             <font>
-                <Font name="Calibri" size="24.0"/>
+                <Font name="Calibri" size="24.0" />
             </font>
         </Label>
         <Label layoutX="27.0" layoutY="49.0" text="Status:">
             <font>
-                <Font name="Calibri" size="18.0"/>
+                <Font name="Calibri" size="18.0" />
             </font>
         </Label>
-        <RadioButton fx:id="activeRadioButton" layoutX="38.0" layoutY="89.0" mnemonicParsing="false"
-                     text="Active">
+        <RadioButton fx:id="activeRadioButton" layoutX="38.0" layoutY="89.0" mnemonicParsing="false" text="Active">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </RadioButton>
-        <RadioButton fx:id="disabledRadioButton" layoutX="38.0" layoutY="107.0" mnemonicParsing="false"
-                     text="Disabled">
+        <RadioButton fx:id="disabledRadioButton" layoutX="38.0" layoutY="107.0" mnemonicParsing="false" text="Disabled">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </RadioButton>
         <Label layoutX="26.0" layoutY="133.0" text="Power:">
             <font>
-                <Font name="Calibri" size="18.0"/>
+                <Font name="Calibri" size="18.0" />
             </font>
         </Label>
-        <Button fx:id="applyButton" layoutX="113.0" layoutY="507.0" mnemonicParsing="false"
-                onAction="#onApplyButtonClick"
-                style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-                text="Apply">
+        <Button fx:id="applyButton" layoutX="113.0" layoutY="507.0" mnemonicParsing="false" onAction="#onApplyButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Apply">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </Button>
         <RadioButton fx:id="allRadioButton" layoutX="38.0" layoutY="71.0" mnemonicParsing="false" text="All">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </RadioButton>
-        <Button fx:id="resetButton" layoutX="56.0" layoutY="507.0" mnemonicParsing="false"
-                onAction="#onResetButtonClick"
-                style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-                text="Reset">
+        <Button fx:id="resetButton" layoutX="56.0" layoutY="507.0" mnemonicParsing="false" onAction="#onResetButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Reset">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </Button>
         <Label layoutX="26.0" layoutY="268.0" text="Room:">
             <font>
-                <Font name="Calibri" size="18.0"/>
+                <Font name="Calibri" size="18.0" />
             </font>
         </Label>
-        <ComboBox fx:id="filterRoomComboBox" layoutX="33.0" layoutY="295.0" prefHeight="26.0" prefWidth="114.0"
-                  promptText="Select room"
-                  style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"/>
+        <ComboBox fx:id="filterRoomComboBox" layoutX="33.0" layoutY="295.0" prefHeight="26.0" prefWidth="114.0" promptText="Select room" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" />
         <Label layoutX="38.0" layoutY="155.0" text="From">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </Label>
-        <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="39.0" layoutY="173.0" prefHeight="10.0"
-                 prefWidth="114.0"/>
+        <Spinner fx:id="fromFilterSpinner" editable="true" layoutX="39.0" layoutY="173.0" prefHeight="10.0" prefWidth="114.0" />
         <Label layoutX="38.0" layoutY="206.0" text="To">
             <font>
-                <Font name="Calibri" size="13.0"/>
+                <Font name="Calibri" size="13.0" />
             </font>
         </Label>
-        <Spinner fx:id="toFilterSpinner" editable="true" layoutX="39.0" layoutY="223.0" prefHeight="26.0"
-                 prefWidth="114.0"/>
+        <Spinner fx:id="toFilterSpinner" editable="true" layoutX="39.0" layoutY="223.0" prefHeight="26.0" prefWidth="114.0" />
     </AnchorPane>
-    <Button layoutX="814.0" layoutY="138.0" mnemonicParsing="false" onAction="#onExtendedSearchButtonClick"
-            style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;"
-            text="Extended Search">
+    <Button layoutX="814.0" layoutY="138.0" mnemonicParsing="false" onAction="#onExtendedSearchButtonClick" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-background-radius: 25px;" text="Extended Search">
         <font>
-            <Font name="Calibri" size="13.0"/>
+            <Font name="Calibri" size="13.0" />
         </font>
     </Button>
 </AnchorPane>

@@ -18,6 +18,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,6 +60,8 @@ public class SearchScreenController implements Initializable {
     public RadioButton disabledRadioButton;
     @FXML
     public Label errorLabel;
+
+    Logger logger = LoggerFactory.getLogger(SearchScreenController.class);
 
     private final IDeviceManager deviceManager;
     private final IDeviceSearch deviceSearch;
@@ -113,6 +117,8 @@ public class SearchScreenController implements Initializable {
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999);
         valueFactory2.setValue(9999);
         toFilterSpinner.setValueFactory(valueFactory2);
+
+        logger.info("SearchScreen initialized");
     }
 
     @FXML
@@ -123,6 +129,8 @@ public class SearchScreenController implements Initializable {
         checkFilterRoomComboBox();
 
         DeviceTable.setItems(devices);
+
+        logger.info("Searched with input \"" + searchTextField.getText() + "\"");
     }
 
     @FXML
@@ -139,6 +147,8 @@ public class SearchScreenController implements Initializable {
         toFilterSpinner.getValueFactory().setValue(9999);
 
         DeviceTable.getItems().clear();
+
+        logger.info("Reset filter");
     }
 
     @FXML

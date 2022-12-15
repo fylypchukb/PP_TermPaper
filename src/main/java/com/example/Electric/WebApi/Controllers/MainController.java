@@ -19,6 +19,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -91,6 +93,8 @@ public class MainController implements Initializable {
     private final IDeviceSearch deviceSearch;
     private final IRoomManager roomManager;
 
+    Logger logger = LoggerFactory.getLogger(MainController.class);
+
     private ObservableList<Device> devices;
 
     @Autowired
@@ -153,6 +157,7 @@ public class MainController implements Initializable {
         valueFactory2.setValue(9999);
         toFilterSpinner.setValueFactory(valueFactory2);
 
+        logger.info("Menu was initialized");
     }
 
     @FXML
@@ -185,6 +190,8 @@ public class MainController implements Initializable {
         checkFilterSpinners();
         checkFilterRoomComboBox();
         updateTable();
+
+        logger.info("Applied filters");
     }
 
     @FXML
@@ -248,6 +255,7 @@ public class MainController implements Initializable {
         toFilterSpinner.getValueFactory().setValue(9999);
 
         updateTable();
+        logger.info("Searched for device with input - \"" + searchTextField.getText() + "\"");
     }
 
     @FXML
@@ -265,6 +273,8 @@ public class MainController implements Initializable {
 
         devices = deviceManager.allDevices();
         updateTable();
+
+        logger.info("Reset filter");
     }
 
     @FXML

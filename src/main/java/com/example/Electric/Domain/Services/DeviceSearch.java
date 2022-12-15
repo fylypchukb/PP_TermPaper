@@ -2,8 +2,11 @@ package com.example.Electric.Domain.Services;
 
 import com.example.Electric.Data.Entities.Device;
 import com.example.Electric.Domain.Interfaces.IDeviceSearch;
+import com.example.Electric.WebApi.Controllers.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -11,6 +14,8 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class DeviceSearch implements IDeviceSearch {
+
+    Logger logger = LoggerFactory.getLogger(DeviceSearch.class);
 
     @Override
     public ObservableList<Device> rangeDevicesSearch(ObservableList<Device> devices, Float powerFrom, Float powerTo) {
@@ -20,6 +25,8 @@ public class DeviceSearch implements IDeviceSearch {
                 i--;
             }
         }
+
+        logger.info("Searched with range " + powerFrom + "-" + powerTo);
 
         return devices;
     }

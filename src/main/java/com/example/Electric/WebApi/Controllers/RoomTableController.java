@@ -14,6 +14,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +47,7 @@ public class RoomTableController implements Initializable {
     public Label errorLabel;
     @FXML
     public Button deleteButton;
+    Logger logger = LoggerFactory.getLogger(RoomTableController.class);
 
     private final IRoomManager roomManager;
 
@@ -74,6 +77,8 @@ public class RoomTableController implements Initializable {
         powerConsumptionColumn.setCellValueFactory(new PropertyValueFactory<>("powerConsumption"));
 
         RoomTable.setItems(rooms);
+
+        logger.info("RoomTable initialized");
     }
 
     @FXML
